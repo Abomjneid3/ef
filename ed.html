@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #image-editor {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #image {
+      width: 300px;
+      height: auto;
+    }
+
+    button {
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="image-editor">
+    <img id="image" src="image.jpg" alt="Image to edit">
+    <button id="brightness-increase">+ Brightness</button>
+    <button id="brightness-decrease">- Brightness</button>
+    <button id="grayscale">Grayscale</button>
+    <button id="sepia">Sepia</button>
+  </div>
+  <script type="text/javascript">
+    const imageEditor = {
+      image: null,
+      brightness: 100,
+      brightnessIncrement: 10,
+
+      init: function() {
+        this.image = document.getElementById('image');
+        this.image.style.filter = 'brightness(100%)'; // default filter state
+
+        const brightnessIncrease = document.getElementById('brightness-increase');
+        const brightnessDecrease = document.getElementById('brightness-decrease');
+        const grayscale = document.getElementById('grayscale');
+        const sepia = document.getElementById('sepia');
+
+        brightnessIncrease.addEventListener('click', () => {
+          this.brightness += this.brightnessIncrement;
+          this.applyFilter();
+        });
+
+        brightnessDecrease.addEventListener('click', () => {
+          this.brightness -= this.brightnessIncrement;
+          this.applyFilter();
+        });
+
+        grayscale.addEventListener('click', () => {
+          this.image.style.filter = 'grayscale(100%)';
+        });
+
+        sepia.addEventListener('click', () => {
+          this.image.style.filter = 'epia(100%)';
+        });
+      },
+
+      applyFilter: function() {
+        try {
+          this.image.style.filter = `brightness(${this.brightness}%)`;
+        } catch (e) {
+          console.error('Error applying filter:', e);
+        }
+      }
+    };
+
+    imageEditor.init();
+  </script>
+</body>
+</html>
